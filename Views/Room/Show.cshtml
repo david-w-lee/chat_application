@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Room Show";
+}
+@model Room
+
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+
+    var ws = new WebSocket("wss://localhost:5001/ws");
+    ws.onopen = function (e) {
+        console.log('Connection to server opened');
+    }
+
+    ws.onmessage = function (e) {
+        var data = e.data;
+        $("#messages").append("<p>"+data+"</p>");
+    }
+
+    function sendMessage() {
+        ws.send("@Model.Id|" + $('#message').val());
+        $('#message').val("");
+    }
+</script>
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <form role="form" id="chat_form" onsubmit="sendMessage(); return false;">
+        <div class="form-group">
+            <input class="form-control" type="text" name="message" id="message"
+                   placeholder="Type text to echo in here" value="" autofocus />
+        </div>
+        <button type="button" id="send" class="btn btn-primary"
+                onclick="sendMessage();">
+            Send!
+        </button>
+    </form>
+    <div id="messages"></div>
+</div>

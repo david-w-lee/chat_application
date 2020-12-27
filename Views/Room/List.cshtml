@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Room List";
+}
+@model List<Room>
+
+<div class="text-center">
+    <h1 class="display-4">List of rooms</h1>
+    <div>
+        @foreach (var room in Model)
+        {
+        <div><a href="/room/show/@room.Id ">@room.Name</a></div>
+        }
+    </div>
+</div>
