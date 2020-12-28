@@ -11,7 +11,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace chat_application.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "RegularUser")]
     public class HomeController : Controller
     {
 
