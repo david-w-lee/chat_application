@@ -51,6 +51,7 @@ namespace chat_application.Controllers
                 {
                     new Claim("Username", user.Username),
                     new Claim(ClaimTypes.Role, "Administrator"),
+                    new Claim(ClaimTypes.Role, "RegularUser")
                 };
 
                 var claimsIdentity = new ClaimsIdentity(
@@ -62,7 +63,10 @@ namespace chat_application.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
-
+                
+                // User.Identity.IsAuthenticated
+                // User is ClaimsPrincipal.
+                // User.Identity is ClaimsIdentity.
                 string cookieValue = GetCookieValueFromResponse(HttpContext.Response, ".AspNetCore.Cookies");
                 Startup.SessionIdUserIdDictionary[cookieValue] = dbUser.Id;
                 
@@ -92,6 +96,12 @@ namespace chat_application.Controllers
             await HttpContext.SignOutAsync(
               CookieAuthenticationDefaults.AuthenticationScheme);
 
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult Denied()
+        {
             return View();
         }
 

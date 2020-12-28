@@ -28,9 +28,9 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                         <li class="nav-item">
-                            @if (HttpContextAccessor.HttpContext.User.Claims.Any(kvp => kvp.Type == "Username"))
+                            @if (User.Identity.IsAuthenticated)
                             {
-                                @HttpContextAccessor.HttpContext.User.Claims.First(kvp => kvp.Type == "Username").Value
+                                @User.Claims.First(kvp => kvp.Type == "Username").Value
                             }
                         </li>
                     </ul>
