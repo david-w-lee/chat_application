@@ -29,6 +29,7 @@ namespace chat_application.Controllers
 
         public IActionResult Index()
         {
+            // IActionResult can be ViewResult(MVC view), ContentResult(e.g. JSON), FileContentResult(e.g. byte array), RedirectToAction(Redirect Response), etc.
             return View();
         }
 

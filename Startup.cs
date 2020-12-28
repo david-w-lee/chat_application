@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -37,7 +38,8 @@ namespace chat_application
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            // Use AddRazorPages() to support WebAPI, MVC and Razor pages in the same project.
+            services.AddRazorPages();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
@@ -122,6 +124,10 @@ namespace chat_application
 
             app.UseEndpoints(endpoints =>
             {
+                // The MapRazorPages call ensures that endpoint routing is set up for Razor Pages.
+                endpoints.MapRazorPages();
+
+                //// If you wanted to add routing for controllers, you would include endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
