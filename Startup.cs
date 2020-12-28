@@ -39,7 +39,9 @@ namespace chat_application
         public void ConfigureServices(IServiceCollection services)
         {
             // Use AddRazorPages() to support WebAPI, MVC and Razor pages in the same project.
-            services.AddRazorPages();
+            // Use AddRazorRuntimeCompilation() to change views and see changes without restarting project.
+            //  Need to install Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.
+            services.AddRazorPages().AddRazorRuntimeCompilation();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
